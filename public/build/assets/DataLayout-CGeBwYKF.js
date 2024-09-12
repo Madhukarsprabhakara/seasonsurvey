@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as s,d as a,a as o,m as c}from"./app-CkDp-D9b.js";const r={},n={class:"mx-auto flex w-full items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8 bg-white"},l={class:"flex-1 top-8 w-9/12 sticky"};function i(t,m){return s(),a("div",n,[o("main",l,[c(t.$slots,"main")])])}const f=e(r,[["render",i]]);export{f as default};

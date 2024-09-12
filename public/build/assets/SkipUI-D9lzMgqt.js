@@ -1,0 +1,1 @@
+import{o,d as e,a as s}from"./app-CkDp-D9b.js";import"./vuedraggable.umd-TsIiJKnN.js";const t={class:"bg-gray-50 py-12"},a=s("div",{class:"max-w-7xl mx-auto sm:px-6 lg:px-8"},[s("p",null,"This is good")],-1),c=[a],l={__name:"SkipUI",setup(_){return(p,r)=>(o(),e("div",t,c))}};export{l as default};

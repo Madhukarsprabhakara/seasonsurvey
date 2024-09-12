@@ -47,6 +47,6 @@ class Team extends JetstreamTeam
 
     public function surveys()
     {
-        return $this->hasMany(Survey::class, 'team_id')->orderBy('created_at', 'desc')->with('SurveyDetail')->withCount('SurveyData','rules');
+        return $this->hasMany(Survey::class, 'team_id')->orderBy('created_at', 'desc')->with('SurveyDetail')->withCount('SurveyData','rules')->where('is_archived', null)->orWhere('is_archived', false);
     }
 }

@@ -1,0 +1,1 @@
+import{bM as r,T as n}from"./app-DNKwt0ce.js";const d=r("surveylink",{state:()=>({count:3,skipmap:[],fields:{},form:null}),actions:{increment(){this.count++},addSkipMap(s,i){const t=this.skipmap.find(e=>Object.keys(e)[0]===s);t?t[s]=i:this.skipmap[s]=i},addFormFields(s,i){this.fields.hasOwnProperty(s)?this.fields[s]=i:this.fields[s]=i,this.form=n(this.fields)}}});export{d as u};

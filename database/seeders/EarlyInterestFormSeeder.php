@@ -22,9 +22,9 @@ class EarlyInterestFormSeeder extends Seeder
         //
         DB::table('surveys')->insert([
         	'global_id'=> \Str::uuid(),
-        	'user_id' => 2,
-        	'team_id' => 2,
-        	'title' => 'Early Interest Form',
+        	'user_id' => 1,
+        	'team_id' => 1,
+        	'title' => 'Survey tool research Form',
             'language_id' => 1,
             'is_open' => true,
         	'created_at' => Carbon::now(),
@@ -37,10 +37,10 @@ class EarlyInterestFormSeeder extends Seeder
         	'updated_at' => Carbon::now(),
         ]);
         DB::table('survey_details')->insert([
-        	'user_id' => 2,
-        	'team_id' => 2,
+        	'user_id' => 1,
+        	'team_id' => 1,
         	'survey_id' => Survey::latest()->first()->id,
-        	'title' => 'Early Interest Form',
+        	'title' => 'Survey tool research Form',
             'language_id' => 1,
         	'created_at' => Carbon::now(),
         	'updated_at' => Carbon::now(),
@@ -49,8 +49,8 @@ class EarlyInterestFormSeeder extends Seeder
 
         DB::table('survey_pages')->insert([
         	
-        	'user_id' => 2,
-        	'team_id' => 2,
+        	'user_id' => 1,
+        	'team_id' => 1,
         	'survey_id' => Survey::latest()->first()->id,
         	'show_submit_button' => false,
         	'sort_order' => 1,
@@ -60,12 +60,12 @@ class EarlyInterestFormSeeder extends Seeder
 
         DB::table('questions')->insert([
         	'question_uuid'=> \Str::uuid(),
-        	'user_id' => 2,
-        	'team_id' => 2,
+        	'user_id' => 1,
+        	'team_id' => 1,
         	'survey_id' => Survey::latest()->first()->id,	
         	'title' => 'Email',
         	'language_id' => 1,
-        	'question_type_id' => 17,
+        	'question_type_id' => 9,
         	'is_mandatory' => false,
         	'validation_rule' => 'required|email:rfc,dns',
             'language_id' => 1,
@@ -75,10 +75,10 @@ class EarlyInterestFormSeeder extends Seeder
 
         DB::table('questions')->insert([
         	'question_uuid'=> \Str::uuid(),
-        	'user_id' => 2,
-        	'team_id' => 2,
+        	'user_id' => 1,
+        	'team_id' => 1,
         	'survey_id' => Survey::latest()->first()->id,	
-        	'title' => 'Tell us about your challenges with your application process',
+        	'title' => 'Tell us about your challenges with your survey tool especially around qualitative data analysis and what tolls do you use to solve the challenges.',
         	'language_id' => 1,
         	'question_type_id' => 1,
         	'is_mandatory' => false,
@@ -87,20 +87,20 @@ class EarlyInterestFormSeeder extends Seeder
         	'created_at' => Carbon::now(),
         	'updated_at' => Carbon::now(),
         ]);
-        DB::table('questions')->insert([
-        	'question_uuid'=> \Str::uuid(),
-        	'user_id' => 2,
-        	'team_id' => 2,
-        	'survey_id' => Survey::latest()->first()->id,	
-        	'title' => 'What are you looking for in an application review tool?',
-        	'language_id' => 1,
-        	'question_type_id' => 1,
-        	'is_mandatory' => false,
-        	'validation_rule' => 'required',
-            'language_id' => 1,
-        	'created_at' => Carbon::now(),
-        	'updated_at' => Carbon::now(),
-        ]);
+        // DB::table('questions')->insert([
+        // 	'question_uuid'=> \Str::uuid(),
+        // 	'user_id' => 1,
+        // 	'team_id' => 1,
+        // 	'survey_id' => Survey::latest()->first()->id,	
+        // 	'title' => 'What tools are you currently using to solve challenges around qualitative data analysis?',
+        // 	'language_id' => 1,
+        // 	'question_type_id' => 1,
+        // 	'is_mandatory' => false,
+        // 	'validation_rule' => 'required',
+        //     'language_id' => 1,
+        // 	'created_at' => Carbon::now(),
+        // 	'updated_at' => Carbon::now(),
+        // ]);
         DB::table('questions')->insert([
             'question_uuid'=> \Str::uuid(),
             'user_id' => User::latest()->first()->id,
@@ -147,43 +147,7 @@ class EarlyInterestFormSeeder extends Seeder
         		'updated_at' => Carbon::now(),
         	]);
         }
-        $survey=Survey::latest()->first();
-        $survey_id=$survey->id;
-        $user_id=$survey->user_id;
-        $team_id=$survey->team_id;
-        $questions=Question::where('survey_id', $survey_id)->get();
-        $survey_page_id=SurveyPage::where('survey_id', $survey_id)->first()->id;
-        foreach ($questions as $question)
-        {
-            if ($question->question_type_id==3)
-            {
-                DB::table('question_options')->insert([
-
-                    'user_id' => $user_id,
-                    'team_id' => $team_id,
-                    'survey_id' => $survey_id,
-                    'title' => 'Yes',
-                    'language_id' => 1,
-                    'question_id' => $question->id,
-                    'order_no' => 1,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-                DB::table('question_options')->insert([
-
-                    'user_id' => $user_id,
-                    'team_id' => $team_id,
-                    'survey_id' => $survey_id,
-                    'title' => 'No',
-                    'language_id' => 1,
-                    'question_id' => $question->id,
-                    'order_no' => 2,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-            }
-
-    }
+        
     	$survey=Survey::latest()->first();
         $survey_id=$survey->id;
         $user_id=$survey->user_id;

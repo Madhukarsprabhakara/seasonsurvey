@@ -1,0 +1,93 @@
+version: '3.8'
+
+networks:
+  seasonsurvey:
+    name: seasonsurvey
+services:
+  postgres:
+    image: postgres:14.12-alpine
+    container_name: postgres
+    networks:
+      - seasonsurvey
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgresql:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=seasonsurvey
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  php:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: php
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - seasonsurvey
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    container_name: nginx
+    depends_on:
+      - php
+      - postgres
+      - llama31
+    networks:
+      - seasonsurvey
+    ports:
+      - 8082:80
+    volumes:
+      - ./src:/var/www/html
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - seasonsurvey
+
+  llama31:
+    image: ilopezluna/llama3.1:0.3.11-8b
+    container_name: llama
+    networks:
+      - seasonsurvey
+    ports:
+      - 11435:11434
+
+  artisan:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: php
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan"]
+    networks:
+      - seasonsurvey
+  npm:
+    image: node:current-alpine
+    container_name: npm
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks:
+      - seasonsurvey
+  runtests:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: runtests
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan", "test"]
+    networks:
+      - seasonsurvey

@@ -35,6 +35,7 @@ services:
     depends_on:
       - php
       - postgres
+      - supervisord
       - llama31
     networks:
       - seasonsurvey
@@ -64,7 +65,7 @@ services:
     build:
       context: .
       dockerfile: php.dockerfile
-    container_name: php
+    container_name: artisan
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
@@ -89,5 +90,15 @@ services:
       - ./src:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["php", "artisan", "test"]
+    networks:
+      - seasonsurvey
+  supervisord:
+    build:
+      context: .
+      dockerfile: supervisord.dockerfile
+    container_name: supervisord
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
     networks:
       - seasonsurvey

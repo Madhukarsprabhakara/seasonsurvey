@@ -1,12 +1,19 @@
-FROM php:8.3-cli
+FROM php:8.3.11-cli
 
-RUN apt-get update && apt-get install -y supervisor
+RUN apt-get update && apt-get install -y supervisor libpq-dev
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_pgsql pgsql
 
 RUN mkdir -p /var/log/supervisor
 
-COPY ./supervisord/seasonsurvey-worker.conf /etc/supervisor/conf.d/seasonsurvey-worker.conf
+
+ADD ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./supervisord/seasonsurvey-worker.conf /etc/supervisor/conf.d/seasonsurvey-worker.conf
 
 
-CMD ["/usr/bin/supervisord"]
+
+
+ENTRYPOINT ["sh", "-c"]
+CMD ["supervisord --nodaemon && tail -f /dev/null"]
+
+

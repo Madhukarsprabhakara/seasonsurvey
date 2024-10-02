@@ -45,9 +45,23 @@ class SurveyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(SurveyService $surveyService, UserService $userService)
     {
         //
+        try {
+            //return $userService->getLoggedinUserTeam();
+             $surveys=$surveyService->getSurveysOnTeamId($userService->getLoggedinUserTeam());
+             return Inertia::render('Forms/Create', [
+                    'surveys' => $surveys, 
+
+                    
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            return $e->getMessage();
+        }
+
     }
 
     /**

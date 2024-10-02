@@ -46,89 +46,7 @@ Route::middleware([
     Route::get('/testaapi', function() {
         return "good";
     });
-    Route::get('/bedrock', function() {
-        # The different model providers have individual request and response formats.
-        # For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
-        $bedrockClient = new BedrockRuntimeClient([
-            'version' => 'latest',
-            'region' => config('services.bedrock.region'), // Replace with your region
-            'credentials' => [
-                'key' => config('services.bedrock.key'),
-                'secret' => config('services.bedrock.secret'),
-            ],
-        ]);
-        $completion = "";
-
-        try {
-            $modelId = 'meta.llama3-1-70b-instruct-v1:0';
-
-            $body = [
-                'prompt' => 'What is godfather and who made it?',
-                'temperature' => 0.5,
-                'max_gen_len' => 512,
-            ];
-
-            $result = $bedrockClient->invokeModel([
-                'contentType' => 'application/json',
-                'body' => json_encode($body),
-                'modelId' => $modelId,
-            ]);
-
-            $response_body = json_decode($result['body']);
-
-            $completion = $response_body->generation;
-        } catch (Exception $e) {
-            echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
-        }
-
-        return $completion;
-    });
-    Route::get('/questionarraytest', function(SurveyService $surveyService, SurveyDataService $surveyDataService, ProcessedSurveyDataService $processedSurveyDataService, QuestionService $questionService, RuleService $ruleService, QuestionOptionService $questionOptionService){
-        try {
-            $survey_data_processed_label=array();
-            $survey_questions_label=array();
-            $survey_questions_key=array();
-            $processed_survey_data_labels=array();
-            $survey_data_id=128;
-            //ReconstructSurveyRecordWithLabels::dispatch($survey_data_id);
-            
-            
-                // Bus::chain([
-                        
-                //         new ReconstructSurveyRecord($survey_data_id),
-                //         new ReconstructSurveyRecordWithLabels($survey_data_id)
-                //     ])->dispatch();
-
-                $rules=Rule::where('survey_id',6)->get();
-                    foreach ($rules as $rule)
-                    {
-                        $jobs[] = new ProcessResponseOnRule($survey_data_id, $rule->id);
-                    }
-                    //return $jobs;
-                    //dispatch the jobs as a chain and have a batch and a job within
-                    Bus::chain([
-                        Bus::batch($jobs)->allowFailures(),
-                        new ReconstructSurveyRecord($survey_data_id),
-                        new ReconstructSurveyRecordWithLabels($survey_data_id)
-                    ])->dispatch();
-            
-            return;
-            // ReconstructSurveyRecord::dispatch($survey_data_id);
-            //     ReconstructSurveyRecordWithLabels::dispatch($survey_data_id);
-            // return;
-            
-            
-        }
-        catch (\Exception $e)
-        {
-            return $e->getMessage();
-        }
-        
-        
-    });
     
-
     #Rules API
 
    Route::get('/s/{global_id}/q/{question_uuid}/rules',[App\Http\Controllers\RuleGroupController::class, 'index'])->name('qrules.index');
@@ -143,7 +61,10 @@ Route::middleware([
 
    Route::get('/forms', [App\Http\Controllers\SurveyController::class, 'index'])->name('forms.index');
    Route::get('/forms/{survey}/fields', [App\Http\Controllers\SurveyController::class, 'showFields'])->name('forms.fields');
-   
+   Route::get('/forms/create', [App\Http\Controllers\SurveyController::class, 'create'])->name('forms.create');
+   Route::get('/forms/{survey}/edit', [App\Http\Controllers\SurveyController::class, 'edit'])->name('forms.edit');
+   Route::put('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
+   //Route::delete('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
    #Tables API
 
    Route::get('/table', function() {

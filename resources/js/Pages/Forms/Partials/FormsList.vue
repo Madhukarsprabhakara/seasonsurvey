@@ -1,5 +1,5 @@
 <template>
-  <FormsListHeader />
+  <!--<FormsListHeader />-->
   <ul role="list" class="divide-y divide-gray-100">
     <li v-for="survey in $page.props.surveys" :key="survey.id" class="flex items-center justify-between gap-x-6 py-5">
       <div class="min-w-0">

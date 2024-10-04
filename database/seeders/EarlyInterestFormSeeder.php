@@ -130,6 +130,7 @@ class EarlyInterestFormSeeder extends Seeder
         		'survey_id' => $survey_id,
         		'question_id' => $question['id'],
         		'title' => $question['title'],
+                'short_name' => $question['title'],
         		'language_id' => 1,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),

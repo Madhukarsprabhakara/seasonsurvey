@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Survey extends Model
 {
     use HasFactory;
-
+    protected $guarded = []; 
     public function scopeUuid(Builder $query, string $global_id): void
     {
         $query->where('global_id', $global_id);

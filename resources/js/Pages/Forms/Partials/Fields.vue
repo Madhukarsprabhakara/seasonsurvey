@@ -1,7 +1,7 @@
 <template>
   <div>
   	<FieldsHeader />
-    <ul role="list" class="divide-y divide-gray-100">
+    <ul v-if="$page.props.survey_questions.pages.length>0" role="list" class="divide-y divide-gray-100">
       <li v-for="question in $page.props.survey_questions.pages[0].question_ids" :key="question.id" class="flex items-center justify-between gap-x-6 py-5">
         <div class="flex min-w-0 gap-x-4">
           

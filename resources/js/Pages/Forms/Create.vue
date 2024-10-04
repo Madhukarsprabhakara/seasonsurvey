@@ -9,7 +9,7 @@
 			
 		</template>
 		<template #main>
-			<FormsListHeader />
+			<CreateForm />
 			<FormsList />
 			
 		</template>
@@ -24,5 +24,6 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import FormsLayout from '@/Pages/Forms/FormsLayout.vue';
 import FormsList from '@/Pages/Forms/Partials/FormsList.vue';
-import FormsListHeader from '@/Pages/Forms/Partials/FormsListHeader.vue';
+import CreateForm from '@/Pages/Forms/Partials/CreateForm.vue';
+
 </script>

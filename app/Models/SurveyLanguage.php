@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SurveyLanguage extends Model
 {
     use HasFactory;
+    protected $guarded = []; 
     public function LanguageDetail()
     {
     	return $this->hasOne(Language::class,  'id','language_id');

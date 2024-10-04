@@ -70,8 +70,8 @@ class AIService {
 
 	public function getProcessedData($prompt)
 	{
-		$response = \Http::timeout(600)->post('http://localhost:11434/api/chat', [
-                'model' => 'llama3',
+		$response = \Http::timeout(600)->post('http://llama:11434/api/chat', [
+                'model' => 'llama3.1:8b',
                 'messages' => [[
                     'role' => 'user',
                     'content' => $prompt

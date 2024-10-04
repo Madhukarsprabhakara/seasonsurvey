@@ -63,7 +63,8 @@ Route::middleware([
    Route::get('/forms/{survey}/fields', [App\Http\Controllers\SurveyController::class, 'showFields'])->name('forms.fields');
    Route::get('/forms/create', [App\Http\Controllers\SurveyController::class, 'create'])->name('forms.create');
    Route::get('/forms/{survey}/edit', [App\Http\Controllers\SurveyController::class, 'edit'])->name('forms.edit');
-   Route::put('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
+   Route::put('/forms/{survey}', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
+   Route::post('/forms', [App\Http\Controllers\SurveyController::class, 'store'])->name('forms.store');
    //Route::delete('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
    #Tables API
 
@@ -80,4 +81,4 @@ Route::middleware([
 //Public survey link
 Route::get('/s/{global_id}',[App\Http\Controllers\SurveyController::class, 'show'])->name('surveys.show');
 Route::get('/thankyou',[App\Http\Controllers\SurveyController::class, 'thankyou'])->name('surveys.thanks');
-Route::post('/storesurvey', [App\Http\Controllers\SurveyController::class, 'store']);
+Route::post('/storesurvey', [App\Http\Controllers\SurveyDataController::class, 'store']);

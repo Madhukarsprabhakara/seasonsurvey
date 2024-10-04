@@ -10,7 +10,7 @@
 		</template>
 		<template #questions>
 				<!-- <FormsList /> -->
-			<Fields />
+			<Fieldsv1 />
 		</template>
 		<template #rightq>
 				
@@ -24,5 +24,6 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import FormFieldsLayout from '@/Pages/Forms/Partials/FormFieldsLayout.vue';
 import FormsList from '@/Pages/Forms/Partials/FormsList.vue';
 import Fields from '@/Pages/Forms/Partials/Fields.vue';
+import Fieldsv1 from '@/Pages/Forms/Partials/Fieldsv1.vue';
 
 </script>

@@ -1,24 +1,31 @@
 	<template>
 	<FieldsHeader />
 	<div v-if="$page.props.survey_questions.pages.length>0" class="mt-6">
-		<div v-for="page in $page.props.survey_questions.pages">
+		
 
-			<div v-for="qid in page.question_ids">
+			
+			    <draggable 
+			    v-model="question_list" 
+			    group="people" 
+			    @start="drag=true" 
+			    @end="drag=false" 
+			    item-key="id" @change="onChange">
+			    <template #item="{element, index}">
+			      
+			    <div class="mb-8 cursor-move">
+			      <component  :is="componentMap[element.question.question_type.html_code]" :qid="element.question" :key="element.question.question_uuid" ></component>
+			    </div>
+			    </template>
 
-				<div class="mb-8">
-					<component  :is="componentMap[qid.question.question_type.html_code]" :qid="qid.question" :key="qid.question.question_uuid" ></component>
-				</div>
-
-					
-
-			</div>
-
+			  </draggable>
+			  
+			  
 
 
 
 			
 
-		</div>
+		
 	</div>
 	</template>
 
@@ -30,19 +37,22 @@ import Welcome from '@/Components/Welcome.vue';
 import Form from '@/Pages/Validate/Form.vue';
 import LanguageSelection from '@/Pages/Survey/LanguageSelection.vue';
 import Title from '@/Pages/Survey/Title.vue';
-import CommentField from '@/Pages/Survey/Questions/CommentField.vue';
-import DropdownSingle from '@/Pages/Survey/Questions/DropdownSingle.vue';
-import NumericBox from '@/Pages/Survey/Questions/NumericBox.vue';
-import RadioHorizontal from '@/Pages/Survey/Questions/RadioHorizontal.vue';
-import RadioVertical from '@/Pages/Survey/Questions/RadioVertical.vue';
-import Attachment from '@/Pages/Survey/Questions/Attachment.vue';
-import TextBox from '@/Pages/Survey/Questions/TextBox.vue';
-import EmailAddress from '@/Pages/Survey/Questions/EmailAddress.vue';
+import CommentField from '@/Pages/Forms/Fieldtypes/CommentField.vue';
+import DropdownSingle from '@/Pages/Forms/Fieldtypes/DropdownSingle.vue';
+import NumericBox from '@/Pages/Forms/Fieldtypes/NumericBox.vue';
+import RadioHorizontal from '@/Pages/Forms/Fieldtypes/RadioHorizontal.vue';
+import RadioVertical from '@/Pages/Forms/Fieldtypes/RadioVertical.vue';
+import Attachment from '@/Pages/Forms/Fieldtypes/Attachment.vue';
+import TextBox from '@/Pages/Forms/Fieldtypes/TextBox.vue';
+import EmailAddress from '@/Pages/Forms/Fieldtypes/EmailAddress.vue';
 import { useSurveyStore } from '@/Pages/Store/surveyStore';
 import InputError from '@/Components/InputError.vue';
 import FieldsHeader from '@/Pages/Forms/Partials/FieldsHeader.vue';
+import draggable from 'vuedraggable';
+import axios from 'axios';
 	const store = useSurveyStore()
 
+	const question_list = ref(usePage().props.survey_questions.pages[0].question_ids);
 	const componentMap = {
 	    Numericbox: NumericBox,
 	    Commentfield: CommentField,
@@ -65,7 +75,7 @@ import FieldsHeader from '@/Pages/Forms/Partials/FieldsHeader.vue';
       )
 	 
 	  onMounted(() => {
-	  	for (let item of usePage().props.event.pages) {
+	  	for (let item of usePage().props.survey_questions.pages) {
 	  		// console.log(item)
 	      for (let sub_item of item.question_ids)
 	      {
@@ -98,4 +108,36 @@ import FieldsHeader from '@/Pages/Forms/Partials/FieldsHeader.vue';
 	 	  return eval(truthCondt)
 		  
 	 }
+	 function onChange(evt) {
+	 	
+	 	const data = [];
+	 	question_list.value.forEach((item, index) => {
+	 		
+	 		item.order_no=index+1
+	 		data.push({
+		        order_no: index+1,
+		        id: item.id,
+		        user_id: item.user_id,
+		        team_id: item.team_id,
+		        survey_id: item.survey_id,
+		        language_id: item.language_id,
+		        question_id: item.question_id,
+		        survey_page_id: item.survey_page_id
+		    });
+		    
+	 	});
+	 	
+	 	axios.put('/questionorder/'+usePage().props.survey_questions.id, data)
+		  .then(response => {
+		    // Handle the response
+		    
+		  })
+		  .catch(error => {
+		    // Handle any errors
+		    console.error(error);
+		  });
+	 	
+
+	 }
+	 
 </script>

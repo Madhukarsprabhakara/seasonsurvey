@@ -67,6 +67,8 @@ Route::middleware([
    Route::post('/forms', [App\Http\Controllers\SurveyController::class, 'store'])->name('forms.store');
    //Route::delete('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
    #Tables API
+   Route::put('/questionorder/{survey}', [App\Http\Controllers\SurveyPageQuestionController::class, 'update'])->name('questionorder.update');
+
 
    Route::get('/table', function() {
         return Inertia::render('Forms/Data/Data');

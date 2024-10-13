@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
-
+use App\Models\Survey;
+use App\Services\SurveyService;
+use App\Services\QuestionService;
+use App\Services\EssentialService;
+use Inertia\Inertia;
+use App\Models\QuestionType;
 class QuestionController extends Controller
 {
     /**
@@ -18,17 +23,42 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Survey $survey, QuestionType $question_type, SurveyService $surveyService, QuestionService $questionService, EssentialService $essentialService) 
     {
         //
+        try {
+            //get the question type from ui
+            //store the question without the title
+            //Return the question which includes the type and id 
+            //return a flag that tells the UI to show the question edit form
+            //return $question_type;
+            //return $survey->languages[0]->language_id;
+            $edit_question_type = $question_type->html_code_edit;
+            $question_array=array();
+            $question_array=$essentialService->addUserIdTeamIdToArray($question_array);
+            $question_array=$questionService->addMandatoryFieldsToQuestionForStoring($question_array, $surveyService->getSurveyDefaultLanguage($survey->id),  $question_type, $survey);
+            $question=$questionService->storeQuestion($question_array);
+            return Inertia::render('Forms/Partials/FormFields', [
+                    'survey_questions' => $surveyService->getSurveyQuestions($survey->id, $surveyService->getSurveyDefaultLanguage($survey->id)),
+                    'edit_question_type' => $question_type,
+                    'edit_question_id' => $question->question_id,
+                    'question' => $question,
+            ]);
+            
+        }
+        catch (\Exception $e)
+        {
+            return $e->getMessage();
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, QuestionService $questionService)
     {
         //
+
     }
 
     /**
@@ -50,9 +80,26 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, Question $question, QuestionService $questionService)
     {
         //
+        $data=$request->all();
+        $validated = $request->validate([
+            'title' => 'required|string',
+
+        ]);  
+        $question->title=$data['title'];
+        //return $question;
+        try {
+            if($questionService->updateQuestion($question))
+            {
+                return to_route('forms.fields',['survey'=> $question->survey_id]); 
+            }
+        }
+        catch (\Exception $e)
+        {
+            return $e->getMessage();
+        }
     }
 
     /**

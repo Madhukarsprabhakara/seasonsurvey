@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->text('logo')->nullable();
             $table->text('public_url')->nullable();
-            $table->boolean('is_open')->nullable();
+            $table->boolean('is_open')->nullable()->default(true);
             $table->boolean('is_public')->nullable();
             $table->foreignId('language_id')->constrained()->nullable();
             $table->boolean('is_archived')->nullable();

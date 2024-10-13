@@ -10,7 +10,7 @@ class SurveyPageQuestionService {
         
         if (!$status)
         {
-            throw new \Exception('Could not update labelled processed data'); 
+            throw new \Exception('Could not update questions order'); 
         }
         return $status;
         

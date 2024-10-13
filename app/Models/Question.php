@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+    protected $guarded = []; 
     public function QuestionOptionIds()
     {
     	return $this->hasMany(QuestionOption::class, 'question_id')->with('OptionDetail')->orderBy('order_no');

@@ -1,6 +1,6 @@
 	<template>
-	<FieldsHeader />
-	<div v-if="$page.props.survey_questions.pages.length>0" class="mt-6">
+		<FieldsHeader />
+		<div v-if="$page.props.survey_questions.pages.length>0" class="mt-6">
 		
 
 			
@@ -12,9 +12,13 @@
 			    item-key="id" @change="onChange">
 			    <template #item="{element, index}">
 			      
-			    <div class="mb-8 cursor-move">
-			      <component  :is="componentMap[element.question.question_type.html_code]" :qid="element.question" :key="element.question.question_uuid" ></component>
-			    </div>
+				    <div class="mb-8 cursor-move">
+				    	
+				      <component v-if="$page.props.edit_question_id!=element.question.id" :is="componentMap[element.question.question_type.html_code]" :qid="element.question" :key="element.question.question_uuid" ></component>
+				      
+				      <component v-else :is="componenteMap[$page.props.edit_question_type['html_code_edit']]" :qid="element.question" :key="element.question.question_uuid" ></component>
+				      
+				    </div>
 			    </template>
 
 			  </draggable>
@@ -26,8 +30,8 @@
 			
 
 		
-	</div>
-	</template>
+		</div>
+</template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
@@ -45,6 +49,16 @@ import RadioVertical from '@/Pages/Forms/Fieldtypes/RadioVertical.vue';
 import Attachment from '@/Pages/Forms/Fieldtypes/Attachment.vue';
 import TextBox from '@/Pages/Forms/Fieldtypes/TextBox.vue';
 import EmailAddress from '@/Pages/Forms/Fieldtypes/EmailAddress.vue';
+
+// import CommentFielde from '@/Pages/Forms/Createeditfields/CommentFielde.vue';
+// import DropdownSinglee from '@/Pages/Forms/Createeditfields/DropdownSinglee.vue';
+import NumericBoxe from '@/Pages/Forms/Createeditfields/NumericBoxe.vue';
+// import RadioHorizontale from '@/Pages/Forms/Createeditfields/RadioHorizontale.vue';
+// import RadioVerticale from '@/Pages/Forms/Createeditfields/RadioVerticale.vue';
+// import Attachmente from '@/Pages/Forms/Createeditfields/Attachmente.vue';
+// import TextBoxe from '@/Pages/Forms/Createeditfields/TextBoxe.vue';
+// import EmailAddresse from '@/Pages/Forms/Createeditfields/EmailAddresse.vue';
+
 import { useSurveyStore } from '@/Pages/Store/surveyStore';
 import InputError from '@/Components/InputError.vue';
 import FieldsHeader from '@/Pages/Forms/Partials/FieldsHeader.vue';
@@ -60,6 +74,14 @@ import axios from 'axios';
 	    Attachment: Attachment,
 	    Textbox: TextBox,
 	    Emailaddress: EmailAddress,
+	 }
+	 const componenteMap = {
+	    Numericboxe: NumericBoxe,
+	    // Commentfielde: CommentFielde,
+	    // Radiohorizontale: RadioHorizontale,
+	    // Attachmente: Attachmente,
+	    // Textboxe: TextBoxe,
+	    // Emailaddresse: EmailAddresse,
 	 }
 	 
 	 function submit() {

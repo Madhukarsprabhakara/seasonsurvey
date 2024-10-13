@@ -33,7 +33,7 @@
       for="email" 
       class="block text-md font-bold leading-6 text-gray-900"
     >
-      Email
+      {{props.qid.question_details.title}}
     </label>
   </div>
   <div class="relative mt-2 rounded-md">

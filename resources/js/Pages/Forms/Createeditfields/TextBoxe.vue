@@ -29,7 +29,13 @@
             </div>
           </div>
           <div class="relative mt-4 rounded-md ">
-            <input type="text" name="text" id="text" class="block w-full rounded-md border-0 py-1.5 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" placeholder="" value="" aria-invalid="true"  />
+            <input 
+              type="text" 
+              
+              class="ml-2 bg-gray-100 block w-3/4 rounded-md border-0 py-1.5 pr-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              aria-invalid="true" 
+              
+            />
             
           </div>
           <div class="mt-6 flex items-center justify-end gap-x-6">

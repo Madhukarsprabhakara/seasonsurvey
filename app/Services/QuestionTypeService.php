@@ -9,4 +9,8 @@ class QuestionTypeService {
        return QuestionType::where('is_active', true)->orderBy('sort_order', 'ASC')->get();
         
     }
+    public function getQuestionTypeOnId(Int $type_id)
+    {
+        return  QuestionType::find($type_id);
+    }
 }

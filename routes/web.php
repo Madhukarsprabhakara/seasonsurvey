@@ -70,6 +70,7 @@ Route::middleware([
    Route::put('/questionorder/{survey}', [App\Http\Controllers\SurveyPageQuestionController::class, 'update'])->name('questionorder.update');
    Route::get('/questions/{survey}/{question_type}/create', [App\Http\Controllers\QuestionController::class, 'create'])->name('questions.create');
    Route::post('/questions', [App\Http\Controllers\QuestionController::class, 'store'])->name('questions.store');
+   Route::get('/questions/{question}/edit', [App\Http\Controllers\QuestionController::class, 'edit'])->name('questions.edit');
    Route::put('/questions/{question}', [App\Http\Controllers\QuestionController::class, 'update'])->name('questions.update');
    
 

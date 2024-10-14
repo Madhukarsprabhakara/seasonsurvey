@@ -8,6 +8,7 @@ use App\Models\Survey;
 use App\Services\SurveyService;
 use App\Services\QuestionService;
 use App\Services\EssentialService;
+use App\Services\QuestionTypeService;
 use Inertia\Inertia;
 use App\Models\QuestionType;
 class QuestionController extends Controller
@@ -67,14 +68,22 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         //
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Question $question)
+    public function edit(Question $question, QuestionTypeService $questionTypeService, SurveyService $surveyService)
     {
         //
+        $question_type=$questionTypeService->getQuestionTypeOnId($question->question_type_id);
+        return Inertia::render('Forms/Partials/FormFields', [
+            'survey_questions' => $surveyService->getSurveyQuestions($question->survey_id, $surveyService->getSurveyDefaultLanguage($question->survey_id)),
+            'edit_question_type' => $question_type,
+            'edit_question_id' => $question->id,
+            'question' => $question,
+        ]);
     }
 
     /**
@@ -107,6 +116,10 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        //delete question_details
+        //delete question_options
+        //delete survey_page_question
+        //delete question
+
     }
 }

@@ -14,17 +14,23 @@
 -->
 <template>
   <div>
-    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+    <label class="block text-sm font-medium leading-6 text-gray-900">{{props.qid.question_details.title}}</label>
     <div class="relative mt-2 rounded-md shadow-sm">
-      <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" placeholder="you@example.com" value="adamwathan" aria-invalid="true" aria-describedby="email-error" />
-      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-        <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
-      </div>
+      <input 
+      type="text" 
+      
+      class="ml-2 bg-gray-100 block w-2/4 rounded-md border-0 py-1.5 pr-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+      placeholder="you@example.com" 
+      aria-invalid="true" 
+      aria-describedby="email-error"
+    />
+      
     </div>
-    <p class="mt-2 text-sm text-red-600" id="email-error">Not a valid email address.</p>
+    
   </div>
 </template>
 
 <script setup>
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
+const props = defineProps(['qid'])
 </script>

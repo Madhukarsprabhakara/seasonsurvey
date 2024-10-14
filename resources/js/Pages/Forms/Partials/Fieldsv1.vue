@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { CheckCircleIcon } from '@heroicons/vue/20/solid'
 import { useForm, usePage } from '@inertiajs/vue3';             
 import Welcome from '@/Components/Welcome.vue';
@@ -50,14 +50,14 @@ import Attachment from '@/Pages/Forms/Fieldtypes/Attachment.vue';
 import TextBox from '@/Pages/Forms/Fieldtypes/TextBox.vue';
 import EmailAddress from '@/Pages/Forms/Fieldtypes/EmailAddress.vue';
 
-// import CommentFielde from '@/Pages/Forms/Createeditfields/CommentFielde.vue';
+import CommentFielde from '@/Pages/Forms/Createeditfields/CommentFielde.vue';
 // import DropdownSinglee from '@/Pages/Forms/Createeditfields/DropdownSinglee.vue';
 import NumericBoxe from '@/Pages/Forms/Createeditfields/NumericBoxe.vue';
 // import RadioHorizontale from '@/Pages/Forms/Createeditfields/RadioHorizontale.vue';
 // import RadioVerticale from '@/Pages/Forms/Createeditfields/RadioVerticale.vue';
 // import Attachmente from '@/Pages/Forms/Createeditfields/Attachmente.vue';
-// import TextBoxe from '@/Pages/Forms/Createeditfields/TextBoxe.vue';
-// import EmailAddresse from '@/Pages/Forms/Createeditfields/EmailAddresse.vue';
+import TextBoxe from '@/Pages/Forms/Createeditfields/TextBoxe.vue';
+import EmailAddresse from '@/Pages/Forms/Createeditfields/EmailAddresse.vue';
 
 import { useSurveyStore } from '@/Pages/Store/surveyStore';
 import InputError from '@/Components/InputError.vue';
@@ -67,6 +67,9 @@ import axios from 'axios';
 	const store = useSurveyStore()
 
 	const question_list = ref(usePage().props.survey_questions.pages[0].question_ids);
+	watch(() => usePage().props.survey_questions.pages[0].question_ids, (newQuestionIds) => {
+	  question_list.value = newQuestionIds
+	})
 	const componentMap = {
 	    Numericbox: NumericBox,
 	    Commentfield: CommentField,
@@ -77,11 +80,11 @@ import axios from 'axios';
 	 }
 	 const componenteMap = {
 	    Numericboxe: NumericBoxe,
-	    // Commentfielde: CommentFielde,
+	    Commentfielde: CommentFielde,
 	    // Radiohorizontale: RadioHorizontale,
 	    // Attachmente: Attachmente,
-	    // Textboxe: TextBoxe,
-	    // Emailaddresse: EmailAddresse,
+	    Textboxe: TextBoxe,
+	    Emailaddresse: EmailAddresse,
 	 }
 	 
 	 function submit() {
@@ -91,45 +94,11 @@ import axios from 'axios';
 
 	  })
 	}
-	 store.form = useForm(
-        store.fields,
-        
-      )
-	 
-	  onMounted(() => {
-	  	for (let item of usePage().props.survey_questions.pages) {
-	  		// console.log(item)
-	      for (let sub_item of item.question_ids)
-	      {
-	      	if (sub_item.question)
-	      	{
-	      		// console.log(sub_item.question.question_uuid)
-	      		//store.addSkipMap(sub_item.question.question_uuid, null)
-	      		
-	      	
-	      		if (!sub_item.question.conditional_logic)
-	      		{
-	      			store.addFormFields('a_'+sub_item.question.id, '')
-	      		}
-	      			
-	      		
-	      		
-	      		//console.log(form['4d03dda3-332a-44e2-94fa-02df1029cc77'])
-	      		//form.fields.push({sub_item.question.question_uuid: null})
-	      		
-	      	}
-	      	
-	      }
-	    }
-	    
-	  	// console.log(store.fields['4d03dda3-332a-44e2-94fa-02df1029cc77'])
-      	//store.addSkipMap(props.qid.question_uuid, null)
+	 onMounted(() => {
+	 	console.log("mounted")
+	  	console.log(question_list.value)
      })
-	 function evaluateExpression(expression, store) {
-	 	  const truthCondt=Function('"use strict";return (' + expression + ')')()['rule']
-	 	  return eval(truthCondt)
-		  
-	 }
+	  
 	 function onChange(evt) {
 	 	
 	 	const data = [];

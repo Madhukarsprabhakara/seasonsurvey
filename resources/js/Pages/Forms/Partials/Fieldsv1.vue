@@ -54,7 +54,7 @@ import CommentFielde from '@/Pages/Forms/Createeditfields/CommentFielde.vue';
 // import DropdownSinglee from '@/Pages/Forms/Createeditfields/DropdownSinglee.vue';
 import NumericBoxe from '@/Pages/Forms/Createeditfields/NumericBoxe.vue';
 // import RadioHorizontale from '@/Pages/Forms/Createeditfields/RadioHorizontale.vue';
-// import RadioVerticale from '@/Pages/Forms/Createeditfields/RadioVerticale.vue';
+import RadioVerticale from '@/Pages/Forms/Createeditfields/RadioVerticale.vue';
 // import Attachmente from '@/Pages/Forms/Createeditfields/Attachmente.vue';
 import TextBoxe from '@/Pages/Forms/Createeditfields/TextBoxe.vue';
 import EmailAddresse from '@/Pages/Forms/Createeditfields/EmailAddresse.vue';
@@ -77,12 +77,15 @@ import axios from 'axios';
 	    Attachment: Attachment,
 	    Textbox: TextBox,
 	    Emailaddress: EmailAddress,
+	    Radiovertical: RadioVertical,
+
 	 }
 	 const componenteMap = {
 	    Numericboxe: NumericBoxe,
 	    Commentfielde: CommentFielde,
 	    // Radiohorizontale: RadioHorizontale,
 	    // Attachmente: Attachmente,
+	    Radioverticale: RadioVerticale,
 	    Textboxe: TextBoxe,
 	    Emailaddresse: EmailAddresse,
 	 }

@@ -43,7 +43,7 @@ class QuestionTypeSeeder extends Seeder
         		'updated_at' => Carbon::now(),
         	]);
         	DB::table('question_types')->insert([
-        		'title'=> 'Single Choice',
+        		'title'=> 'Single Choice (Radio - horizonal view)',
         		'description' => 'Used when you want to people to choose one out of multipe choices',
         		'icon' => '',
         		'html_code' => 'Radiohorizontal',
@@ -62,7 +62,7 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'string',
                 'html_code_edit' => 'Multiplechoicee',
                 'is_active' => false,
-                'sort_order' =>8,
+                'sort_order' =>9,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),
         	]);
@@ -74,7 +74,7 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'date',
                 'html_code_edit' => 'Datee',
                 'is_active' => false,
-                'sort_order' =>9,
+                'sort_order' =>10,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),
         	]);
@@ -86,7 +86,7 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'numeric',
                 'html_code_edit' => 'Npse',
                 'is_active' => false,
-                'sort_order' =>6,
+                'sort_order' =>7,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),
         	]);
@@ -98,7 +98,7 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'file',
                 'html_code_edit' => 'Attachmente',
                 'is_active' => false,
-                'sort_order' =>7,
+                'sort_order' =>8,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),
         	]);
@@ -110,7 +110,7 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'string',
                 'html_code_edit' => 'Textboxe',
                 'is_active' => true,
-                'sort_order' =>4,
+                'sort_order' =>5,
         		'created_at' => Carbon::now(),
         		'updated_at' => Carbon::now(),
         	]);
@@ -122,7 +122,19 @@ class QuestionTypeSeeder extends Seeder
                 'default_validation' => 'email:rfc,dns',
                 'html_code_edit' => 'Emailaddresse',
                 'is_active' => true,
-                'sort_order' =>5,
+                'sort_order' =>6,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            DB::table('question_types')->insert([
+                'title'=> 'Single Choice (Radio)',
+                'description' => 'Used when you want to people to choose one out of multipe choices and show as normal radio option',
+                'icon' => '',
+                'html_code' => 'Radiovertical',
+                'default_validation' => 'string',
+                'html_code_edit' => 'Radioverticale',
+                'is_active' => true,
+                'sort_order' =>4,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

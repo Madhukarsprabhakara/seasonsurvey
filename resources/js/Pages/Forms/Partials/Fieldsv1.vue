@@ -98,8 +98,8 @@ import axios from 'axios';
 	  })
 	}
 	 onMounted(() => {
-	 	console.log("mounted")
-	  	console.log(question_list.value)
+	 	//console.log("mounted")
+	  	//console.log(question_list.value)
      })
 	  
 	 function onChange(evt) {

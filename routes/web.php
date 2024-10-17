@@ -74,8 +74,10 @@ Route::middleware([
    Route::put('/questions/{question}', [App\Http\Controllers\QuestionController::class, 'update'])->name('questions.update');
    
 
+   #Question Options API
 
-   
+   Route::post('/questionoption', [App\Http\Controllers\QuestionOptionController::class, 'store'])->name('questionoptions.store');
+
    Route::get('/questiontypes', [App\Http\Controllers\QuestionTypeController::class, 'index'])->name('questiontypes.index');
 
    Route::get('/table', function() {

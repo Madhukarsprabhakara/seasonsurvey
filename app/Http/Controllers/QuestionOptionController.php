@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\QuestionOption;
 use Illuminate\Http\Request;
-
+use App\Services\QuestionOptionService;
 class QuestionOptionController extends Controller
 {
     /**
@@ -26,9 +26,12 @@ class QuestionOptionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, QuestionOptionService $questionOptionService)
     {
         //
+        return $request->all();
+        $questionOptionService->storeOption($request->all());    
+
     }
 
     /**

@@ -79,6 +79,7 @@ class SurveyController extends Controller
         ]);    
         $survey_to_save=$essentialService->addUserIdTeamIdToArray($data);
         $survey_to_save=$surveyService->addUuid($survey_to_save);
+
         //$survey_to_save=$surveyService->addDefaultlanguageId($survey_to_save);
         $status=$surveyService->storeSurvey($survey_to_save);
 
@@ -98,8 +99,10 @@ class SurveyController extends Controller
     {
         //
         try {
-            
-            $survey=Survey::uuid($global_id)->open()->orWhere->opennull()->first();
+           
+            $survey=$surveyService->getSurveyOnUuid($global_id);
+            //$survey=Survey::uuid($global_id)->open()->orWhere->opennull()->first();
+            //return $survey;
             if (!$survey->is_open)
             {
                 return Inertia::render('Survey/ClosedSurvey');
@@ -134,6 +137,9 @@ class SurveyController extends Controller
             
             return Inertia::render('Forms/Partials/FormFields', [
                     'survey_questions' => $surveyService->getSurveyQuestions($survey->id, $surveyService->getSurveyDefaultLanguage($survey->id)),
+                    'edit_question_type' => null,
+                    'edit_question_id' => null,
+                    'question' => null,
             ]);
             
         }

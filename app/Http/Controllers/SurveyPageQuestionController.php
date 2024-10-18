@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\SurveyPageQuestion;
 use Illuminate\Http\Request;
-
+use App\Models\Survey;
+use App\Services\SurveyPageQuestionService;
 class SurveyPageQuestionController extends Controller
 {
     /**
@@ -50,9 +51,12 @@ class SurveyPageQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SurveyPageQuestion $surveyPageQuestion)
+    public function update(Request $request, Survey $survey, SurveyPageQuestionService $surveyPageQuestionService)
     {
         //
+        //return $request->all();
+        $status=$surveyPageQuestionService->updateQuestionSortOrder($request->all());
+        return $status;
     }
 
     /**

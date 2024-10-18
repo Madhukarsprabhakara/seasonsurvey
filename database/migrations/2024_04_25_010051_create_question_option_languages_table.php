@@ -21,7 +21,9 @@ return new class extends Migration
             $table->text('help_descr')->nullable();
             $table->text('title');
             $table->foreignId('language_id')->constrained();
+            $table->index(['question_option_id', 'language_id']);
             $table->timestamps();
+
         });
     }
 

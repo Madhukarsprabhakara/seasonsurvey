@@ -67,6 +67,18 @@ Route::middleware([
    Route::post('/forms', [App\Http\Controllers\SurveyController::class, 'store'])->name('forms.store');
    //Route::delete('/forms/{survey}/update', [App\Http\Controllers\SurveyController::class, 'update'])->name('forms.update');
    #Tables API
+   Route::put('/questionorder/{survey}', [App\Http\Controllers\SurveyPageQuestionController::class, 'update'])->name('questionorder.update');
+   Route::get('/questions/{survey}/{question_type}/create', [App\Http\Controllers\QuestionController::class, 'create'])->name('questions.create');
+   Route::post('/questions', [App\Http\Controllers\QuestionController::class, 'store'])->name('questions.store');
+   Route::get('/questions/{question}/edit', [App\Http\Controllers\QuestionController::class, 'edit'])->name('questions.edit');
+   Route::put('/questions/{question}', [App\Http\Controllers\QuestionController::class, 'update'])->name('questions.update');
+   
+
+   #Question Options API
+
+   Route::post('/questionoption', [App\Http\Controllers\QuestionOptionController::class, 'store'])->name('questionoptions.store');
+
+   Route::get('/questiontypes', [App\Http\Controllers\QuestionTypeController::class, 'index'])->name('questiontypes.index');
 
    Route::get('/table', function() {
         return Inertia::render('Forms/Data/Data');

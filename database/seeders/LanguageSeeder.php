@@ -23,6 +23,7 @@ class LanguageSeeder extends Seeder
                 'title'=> 'US English',
                 'language_code' => 'en',
                 'charset' => 'UTF-8',
+                'is_default' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
         ]);

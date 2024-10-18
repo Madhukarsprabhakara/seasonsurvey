@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
-
+use App\Services\QuestionTypeService;
 class QuestionTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(QuestionTypeService $questionTypeService)
     {
         //
+        return $questionTypeService->getQuestionTypes();
     }
 
     /**

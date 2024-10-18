@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('team_id')->constrained();
             $table->foreignId('survey_id')->constrained();
             $table->text('help_descr')->nullable();
-            $table->longText('title');
+            $table->longText('title')->nullable();
             $table->foreignId('language_id')->constrained()->default(1);
             $table->foreignId('question_type_id')->constrained();
             $table->boolean('is_mandatory')->default(0);

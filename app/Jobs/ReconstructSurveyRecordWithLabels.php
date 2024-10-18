@@ -55,7 +55,7 @@ class ReconstructSurveyRecordWithLabels implements ShouldQueue
 
                 //create question key
                 //use question label as key
-                if ($question['question']['question_type_id']===3)
+                if ($question['question']['question_type_id']===3 || $question['question']['question_type_id']===10)
                 {
                     $survey_data_processed_label[$question_key]=$questionOptionService->getOptionLabel($survey_data[$question_key]);
                     $survey_data_processed_label['id']=$survey_data_id;

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('title');
             $table->longText('html_code')->nullable();
             $table->longText('icon')->nullable();
+            $table->text('default_validation')->nullable();
+            $table->text('html_code_edit')->nullable();
             $table->timestamps();
         });
     }

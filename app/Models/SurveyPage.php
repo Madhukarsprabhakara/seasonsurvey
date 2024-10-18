@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class SurveyPage extends Model
 {
     use HasFactory;
+    protected $guarded = []; 
     public function QuestionIds()
     {
     	return $this->hasMany(SurveyPageQuestion::class, 'survey_page_id')->with('question')->orderBy('order_no');

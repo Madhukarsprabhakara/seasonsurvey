@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('question_uuid')->references('question_uuid')->on('questions');
             $table->foreignId('language_id')->constrained();
             $table->text('help_descr')->nullable();
-            $table->longText('title');
+            $table->longText('title')->nullable();
             $table->timestamps();
         });
     }

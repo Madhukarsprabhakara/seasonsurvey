@@ -4,6 +4,7 @@ use App\Models\Survey;
 use App\Models\SurveyLanguage;
 use App\Models\SurveyDetail;
 use App\Models\Language;
+use App\Models\SurveyPage;
 use App\Models\Team;
 class SurveyService {
     public function getSurveysOnTeamId(Team $team)
@@ -18,6 +19,15 @@ class SurveyService {
         {
             $survey_obj=Survey::find($survey->id);
             return $survey_id= $survey_obj->id;
+        }
+        throw new \Exception('Survey is no longer active'); 
+        
+    }
+    public function getSurveyOnUuid($global_id) {
+        $survey=Survey::where('global_id', $global_id)->first();
+        if ($survey)
+        {
+            return $survey;
         }
         throw new \Exception('Survey is no longer active'); 
         
@@ -52,8 +62,8 @@ class SurveyService {
         $survey_fresh=$survey->fresh();
         $survey_detail=$this->storeSurveyDetail($survey_fresh);
         $survey_language=$this->storeSurveyLanguage($survey_fresh);
-
-        if ($survey && $survey_detail && $survey_language)
+        $survey_page=$this->storeSurveyPage($survey_fresh);
+        if ($survey && $survey_detail && $survey_language && $survey_page)
         {
             return true;
         }
@@ -87,6 +97,20 @@ class SurveyService {
         }
         throw new \Exception('Something went wrong, could not save your survey language. Please try again.' );
 
+
+    }
+    public function storeSurveyPage(Survey $survey_fresh)
+    {
+        $survey_pages['user_id']=$survey_fresh->user_id;
+        $survey_pages['team_id']=$survey_fresh->team_id;
+        $survey_pages['survey_id']=$survey_fresh->id;
+        $survey_pages['sort_order']=1;
+        $survey_page=SurveyPage::create($survey_pages);
+        if ($survey_page)
+        {
+            return true;
+        }
+        throw new \Exception('Something went wrong, could not save your survey page. Please try again.' );
 
     }
     public function addDefaultlanguageId($survey_data)

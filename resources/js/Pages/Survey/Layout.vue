@@ -67,6 +67,7 @@
 	    Numericbox: NumericBox,
 	    Commentfield: CommentField,
 	    Radiohorizontal: RadioHorizontal,
+	    Radiovertical: RadioVertical,
 	    Attachment: Attachment,
 	    Textbox: TextBox,
 	    Emailaddress: EmailAddress,

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Survey;
 use App\Services\SurveyService;
 use App\Services\QuestionService;
+use App\Services\QuestionOptionService;
 use App\Services\EssentialService;
 use App\Services\QuestionTypeService;
 use Inertia\Inertia;
@@ -89,9 +90,10 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question, QuestionService $questionService)
+    public function update(Request $request, Question $question, QuestionService $questionService, QuestionOptionService $questionOptionService)
     {
         //
+        
         $data=$request->all();
         $validated = $request->validate([
             'title' => 'required|string',
@@ -101,7 +103,11 @@ class QuestionController extends Controller
         //return $question;
         try {
             if($questionService->updateQuestion($question))
-            {
+            {   
+                if ($question->question_type_id ===10) {
+                    $questionOptionService->storeOptionArray($data['question_options']);
+                }
+                
                 return to_route('forms.fields',['survey'=> $question->survey_id]); 
             }
         }

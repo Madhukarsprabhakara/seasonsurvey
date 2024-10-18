@@ -102,13 +102,40 @@ form.id = usePage().props.edit_question_id;
 form.title = usePage().props.question.title;
 form.question_options=notificationMethods.value;
 
-watch(() => notificationMethods.value, (newQuestionIds) => {
-    form.question_options = newQuestionIds
+
+function onChange() {
+    
+    const data = [];
+    notificationMethods.value.forEach((item, index) => {
+      
+      item.order_no=index+1
+      data.push({
+            order_no: index+1,
+            id: item.id,
+            user_id: item.user_id,
+            team_id: item.team_id,
+            survey_id: item.survey_id,
+            language_id: item.language_id,
+            question_id: item.question_id,
+            title: item.title,
+            // option_detail: item.option_detail,
+            
+        });
+       
+    });
+
+    
+    notificationMethods.value=data
+    
+    
+
+   }
+
+watch(() => notificationMethods.value, (newQuestionOptions) => {
+    form.question_options = newQuestionOptions
   })
 
-function onChange(evt) {
-  //console.log(evt)
-}
+
 function pushOption()
 {
   //create the option
@@ -119,11 +146,10 @@ function pushOption()
   index.value=notificationMethods.value.length+1;
   data.push({question_id: usePage().props.question.id,survey_id:usePage().props.question.survey_id, team_id: usePage().props.question.team_id,order_no: index.value, title: 'Untitled option '+index.value, 'language_id': 1});
 
-  axios.post('/questionoption/', data)
+  axios.post('/questionoption/', {question_id: usePage().props.question.id,survey_id:usePage().props.question.survey_id, team_id: usePage().props.question.team_id,order_no: index.value, title: 'Untitled option '+index.value, 'language_id': 1})
       .then(response => {
         // Handle the response
-        
-        notificationMethods.value.push(response.data[0]);
+        notificationMethods.value.push(response.data);
         
       })
       .catch(error => {
@@ -137,5 +163,7 @@ function popOption(indexToRemove)
 {
   
   notificationMethods.value.splice(indexToRemove, 1); 
+  this.onChange();
 }
+
 </script>

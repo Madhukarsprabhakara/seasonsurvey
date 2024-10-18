@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionOption extends Model
 {
     use HasFactory;
+    protected $guarded = []; 
     public function OptionDetail()
     {
     	return $this->hasOne(QuestionOptionLanguage::class, 'question_option_id');

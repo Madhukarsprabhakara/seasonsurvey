@@ -35,7 +35,6 @@ services:
     depends_on:
       - php
       - postgres
-      - llama31
     networks:
       - seasonsurvey
     ports:
@@ -102,7 +101,6 @@ services:
       - nginx
       - php
       - postgres
-      - llama31
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html

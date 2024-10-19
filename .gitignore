@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-/postgresql/data
+/postgresql/*
 /public/build
 /public/hot
 /public/storage

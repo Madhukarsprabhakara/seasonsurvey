@@ -12,7 +12,7 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - ./postgresql/data:/var/lib/postgresql/data
+      - ./src/postgresql/data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=seasonsurvey
       - POSTGRES_USER=postgres
@@ -24,7 +24,7 @@ services:
       dockerfile: php.dockerfile
     container_name: php
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     networks:
       - seasonsurvey
   nginx:
@@ -40,13 +40,13 @@ services:
     ports:
       - 8082:80
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
 
   composer:
     image: composer:latest
     container_name: composer
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     working_dir: /var/www/html
     networks:
       - seasonsurvey
@@ -65,7 +65,7 @@ services:
       dockerfile: php.dockerfile
     container_name: artisan
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["php", "artisan"]
     networks:
@@ -76,7 +76,7 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     working_dir: /var/www/html
     entrypoint: ['npm']
     networks:
@@ -87,7 +87,7 @@ services:
       dockerfile: php.dockerfile
     container_name: runtests
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["php", "artisan", "test"]
     networks:
@@ -102,7 +102,7 @@ services:
       - php
       - postgres
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     working_dir: /var/www/html
     networks:
       - seasonsurvey

@@ -41,6 +41,7 @@ services:
       - seasonsurvey
     ports:
       - 80:80
+      - 443:443
 
   composer:
     image: composer:latest

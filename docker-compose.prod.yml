@@ -1,0 +1,93 @@
+version: '3.8'
+
+networks:
+  seasonsurvey:
+    name: seasonsurvey
+services:
+  postgres:
+    image: postgres:14.12
+    container_name: postgres
+    networks:
+      - seasonsurvey
+    ports:
+      - 5433:5432
+    
+    environment:
+      - POSTGRES_DB=seasonsurvey
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  php:
+    build:
+      context: .
+      dockerfile: php.prod.dockerfile
+    container_name: php
+    networks:
+      - seasonsurvey
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.prod.dockerfile
+    container_name: nginx
+    depends_on:
+      - php
+      - postgres
+    networks:
+      - seasonsurvey
+    ports:
+      - 8082:80
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    working_dir: /var/www/html
+    networks:
+      - seasonsurvey
+
+  llama31:
+    image: ilopezluna/llama3.1:0.3.11-8b
+    container_name: llama
+    networks:
+      - seasonsurvey
+    ports:
+      - 11435:11434
+
+  artisan:
+    build:
+      context: .
+      dockerfile: php.prod.dockerfile
+    container_name: artisan
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan"]
+    networks:
+      - seasonsurvey
+  npm:
+    image: node:current-alpine
+    container_name: npm
+    ports:
+      - 5173:5173
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks:
+      - seasonsurvey
+  runtests:
+    build:
+      context: .
+      dockerfile: php.prod.dockerfile
+    container_name: runtests
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan", "test"]
+    networks:
+      - seasonsurvey
+  supervisord:
+    build:
+      context: .
+      dockerfile: supervisord.prod.dockerfile
+    container_name: supervisord
+    depends_on:
+      - nginx
+      - php
+      - postgres
+    working_dir: /var/www/html
+    networks:
+      - seasonsurvey

@@ -5,7 +5,7 @@ networks:
     name: seasonsurvey
 services:
   postgres:
-    image: postgres:14.12-alpine
+    image: postgres:14.12
     container_name: postgres
     networks:
       - seasonsurvey

@@ -1,7 +1,6 @@
 /src/.phpunit.cache
 /src/node_modules
-/src/postgresql/*
-/postgresql/*
+postgresql/*
 /src/public/build
 /src/public/hot
 /src/public/storage

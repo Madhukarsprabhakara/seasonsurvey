@@ -2,6 +2,7 @@ FROM php:8.3.11-fpm-alpine
 
 RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
 RUN mkdir -p /var/www/html
+
 ADD ./src/ /var/www/html
 
 RUN apk add libpq-dev \

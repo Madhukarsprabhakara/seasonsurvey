@@ -31,9 +31,6 @@ services:
       context: .
       dockerfile: nginx.prod.dockerfile
     container_name: nginx
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
     depends_on:
       - php
       - postgres

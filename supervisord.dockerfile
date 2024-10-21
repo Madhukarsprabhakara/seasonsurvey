@@ -9,7 +9,7 @@ RUN mkdir -p /var/log/supervisor
 
 ADD ./supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./supervisord/seasonsurvey-worker.conf /etc/supervisor/conf.d/seasonsurvey-worker.conf
-ADD ./src/ /var/www/html
+
 
 
 

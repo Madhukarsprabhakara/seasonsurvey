@@ -92,6 +92,18 @@ services:
     entrypoint: ["php", "artisan", "test"]
     networks:
       - seasonsurvey
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: php.prod.dockerfile
+    container_name: scheduler
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "artisan", "schedule:work"]
+    networks:
+      - seasonsurvey
   supervisord:
     build:
       context: .
@@ -101,6 +113,7 @@ services:
       - nginx
       - php
       - postgres
+      - scheduler
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html

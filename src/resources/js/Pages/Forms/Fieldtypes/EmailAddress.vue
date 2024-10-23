@@ -13,6 +13,8 @@
   ```
 -->
 <template>
+  <FieldLayout :question="props.qid">
+      <template #question>
   <div class="mb-6">
   <div class="flex items-center">
     <svg 
@@ -49,8 +51,11 @@
   </div>
 </div>
 </template>
+    </FieldLayout>
+</template>
 
 <script setup>
+import FieldLayout from '@/Pages/Forms/Partials/FieldLayout.vue';
 import { useSurveyStore } from '@/Pages/Store/surveyStore';
 import { QuestionMarkCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import { ref, watch } from 'vue'

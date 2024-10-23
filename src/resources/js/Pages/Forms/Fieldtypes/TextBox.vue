@@ -13,6 +13,8 @@
   ```
 -->
 <template>
+<FieldLayout :question="props.qid">
+      <template #question>
   <div>
     <div class="flex items-center">
       <svg 
@@ -49,9 +51,12 @@
     </div>
     
   </div>
+  </template>
+    </FieldLayout>
 </template>
 
 <script setup>
+import FieldLayout from '@/Pages/Forms/Partials/FieldLayout.vue';
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 const props = defineProps(['qid'])
 </script>

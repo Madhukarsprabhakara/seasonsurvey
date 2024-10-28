@@ -49,7 +49,7 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('forms.index')" :active="route().current('forms.index')">
-                                    Forms
+                                    Surveys
                                 </NavLink>
                                <!--  <NavLink :href="route('skipquestion')" :active="route().current('skipquestion')">
                                     Folders

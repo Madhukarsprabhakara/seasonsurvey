@@ -2,6 +2,7 @@
 /src/node_modules
 postgresql/*
 /src/public/build
+pgadmin-data/*
 /src/public/hot
 /src/public/storage
 /src/storage/*.key

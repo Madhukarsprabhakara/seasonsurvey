@@ -119,3 +119,15 @@ services:
     working_dir: /var/www/html
     networks:
       - seasonsurvey
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=madhukar@seasonsurvey.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=slash123'
+    ports:
+      - 8084:80
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    networks:
+      - seasonsurvey
+    restart: unless-stopped

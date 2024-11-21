@@ -41,6 +41,7 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html
+    restart: unless-stopped
 
   composer:
     image: composer:latest
@@ -119,6 +120,7 @@ services:
     working_dir: /var/www/html
     networks:
       - seasonsurvey
+    restart: unless-stopped
   pgadmin:
     image: dpage/pgadmin4:latest
     environment:

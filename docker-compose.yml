@@ -13,6 +13,7 @@ services:
       - 5433:5432
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
+    
     environment:
       - POSTGRES_DB=seasonsurvey
       - POSTGRES_USER=postgres
@@ -38,10 +39,10 @@ services:
     networks:
       - seasonsurvey
     ports:
-      - 80:80
+      - 8000:80
     volumes:
       - ./src:/var/www/html
-    restart: unless-stopped
+   
 
   composer:
     image: composer:latest
@@ -120,7 +121,7 @@ services:
     working_dir: /var/www/html
     networks:
       - seasonsurvey
-    restart: unless-stopped
+    
   pgadmin:
     image: dpage/pgadmin4:latest
     environment:
@@ -132,4 +133,4 @@ services:
       - ./pgadmin-data:/var/lib/pgadmin
     networks:
       - seasonsurvey
-    restart: unless-stopped
+    

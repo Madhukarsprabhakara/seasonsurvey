@@ -86,7 +86,8 @@ Route::middleware([
    Route::get('/sdtable/{global_id}',[App\Http\Controllers\ProcessedSurveyDataController::class, 'show'])->name('surveytable.show');
    Route::get('/sd/{survey_id}',[App\Http\Controllers\ProcessedSurveyDataController::class, 'fetchdata'])->name('surveydata.show');
     
-   
+   #Post some data end point for testing
+   Route::post('/post-test-data', [App\Http\Controllers\TestDataPostController::class, 'store'])->name('testdata.store');
     
 });
 

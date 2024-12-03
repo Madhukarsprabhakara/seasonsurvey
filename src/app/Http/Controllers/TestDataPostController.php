@@ -30,7 +30,7 @@ class TestDataPostController extends Controller
     {
         //
         try {
-            // iBUAoAsRe15yvaFa0unp1Klye1sHN716PXISSMSy641bd5dc
+            // iBUAoAsRe15yvaFa0unp1Klye1sHN716PXISSMSy641bd5dc I3ZUMzKfScuCRDlKnXmpx2LRkUuFFGHsF2IYH5O9771aff98
             $data=$request->all();
             $status=TestDataPost::create($data);
             if ($status)

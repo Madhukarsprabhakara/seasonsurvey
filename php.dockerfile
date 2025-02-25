@@ -9,6 +9,6 @@ RUN apk add libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql soap
 
 RUN chown -R  laravel:laravel /var/www/html
-RUN chmod -R 777 /var/www/html/storage
+
 
 

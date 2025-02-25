@@ -80,7 +80,7 @@ services:
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
-    entrypoint: ['npm']
+    entrypoint: ["npm", "run", "dev", "--", "--host"]
     networks:
       - seasonsurvey
   runtests:

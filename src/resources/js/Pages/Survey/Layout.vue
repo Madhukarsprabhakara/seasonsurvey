@@ -35,7 +35,7 @@
 					 </button>
 					 
 	            	</form>
-	            	<InputError v-if="JSON.stringify($page.props.errors)!== '{}'" message="Please correct the errors mentioned above." class="mt-2" />
+	            	<InputError v-if="JSON.stringify($page.props.errors)" message="Please correct the errors mentioned above." class="mt-2" />
 	        	</div>
         	</div>
         </div>

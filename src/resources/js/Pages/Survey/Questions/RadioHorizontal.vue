@@ -25,7 +25,7 @@
         </div>
         
       </div>
-      <InputError :message="$page.props.errors['a_'+props.qid.id]" class="mt-2" />
+      <InputError v-if="$page.props.errors" :message="$page.props.errors['a_'+props.qid.id]" class="mt-2" />
     </fieldset>
   </div>
 </template>

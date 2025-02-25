@@ -62,10 +62,7 @@
         </label>
       </div>
     </div>
-    <InputError 
-      :message="$page.props.errors['a_'+props.qid.id]" 
-      class="mt-2"
-    />
+    
   </fieldset>
 </div>
 </template>

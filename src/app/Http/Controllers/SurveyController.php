@@ -118,6 +118,7 @@ class SurveyController extends Controller
             }  
             if ($survey)
             {
+                //return $surveyService->getSurveyQuestions($survey_id, $language_id);
                 return Inertia::render('Survey/Layout', [
                     'event' => $surveyService->getSurveyQuestions($survey_id, $language_id), 
 
@@ -128,6 +129,7 @@ class SurveyController extends Controller
         }
         catch (\Exception $e)
         {
+            return $e->getMessage();
             abort(500, $e->getMessage());
         }
     }
